@@ -70,7 +70,7 @@ public class Timer {
     System.out.println("1) Dauer der kurzen Pausen bearbeiten");
     System.out.println("2) Dauer der langen Pausen bearbeiten");
     System.out.println("3) Auf Standard zuruecksetzen");
-    System.out.println("4) Zurück zum Startmenu");
+    System.out.println("4) Zurueck zum Startmenu");
 
     while(true){
       if(scanner.hasNextInt()) {
@@ -90,7 +90,7 @@ public class Timer {
           System.out.println("Bitte einen ganzen Wert eingeben");
         }
         arbeitsZeit = scanner.nextInt();
-        System.out.println("Ihre neue Arbeitszeit beträgt " + arbeitsZeit +"min");
+        System.out.println("Ihre neue Arbeitszeit betraegt " + arbeitsZeit +"min");
     }else if(eingabe.compareTo("1") == 0){
       System.out.println("Bitte neue Zeit in ganzen Minuten eingeben: ");
       while(!scanner.hasNextInt()){
@@ -98,7 +98,7 @@ public class Timer {
         System.out.println("Bitte einen ganzen Wert eingeben");
       }
       kurzePause = scanner.nextInt();
-      System.out.println("Ihre neue kurze Pause beträgt " + kurzePause + "min");
+      System.out.println("Ihre neue kurze Pause betraegt " + kurzePause + "min");
     }else if(eingabe.compareTo("2") == 0){
       System.out.println("Bitte neue Zeit in ganzen Minuten eingeben: ");
       while(!scanner.hasNextInt()){
@@ -106,7 +106,7 @@ public class Timer {
         System.out.println("Bitte einen ganzen Wert eingeben");
       }
       langePause = scanner.nextInt();
-      System.out.println("Ihre neue lange Pause beträgt " + langePause + "min");
+      System.out.println("Ihre neue lange Pause betraegt " + langePause + "min");
     }else if(eingabe.compareTo("3") == 0){
       arbeitsZeit = arbeitsZeitStandard;
       kurzePause = kurzePauseStandard;
@@ -141,12 +141,12 @@ public class Timer {
       arbeitsIntervallCounter = arbeitsIntervallCounter +1;
       long pausenZeit = 0;
       if(arbeitsIntervallCounter == 3) {
-        System.out.println("Möchtest du eine Pause von " + langePause
-                + " einlegen? y = 1/n = 0. Oder möchten Sie zum Startmenu? y = 2. Oder möchten Sie beenden? y = -1");
+        System.out.println("Moechtest du eine Pause von " + langePause
+                + " einlegen? y = 1/n = 0. Oder moechten Sie zum Startmenu? y = 2. Oder moechten Sie beenden? y = -1");
         pausenZeit = kurzePause;
       } else {
-        System.out.println("Möchtest du eine Pause von " + kurzePause
-                + " einlegen? y = 1/n = 0. Oder möchten Sie zum Startmenu? y = 2. Oder möchten Sie beenden? y = -1");
+        System.out.println("Moechtest du eine Pause von " + kurzePause
+                + " einlegen? y = 1/n = 0. Oder moechten Sie zum Startmenu? y = 2. Oder moechten Sie beenden? y = -1");
         pausenZeit = langePause;
       }
 
@@ -160,16 +160,16 @@ public class Timer {
       }
 
       if(eingabe.compareTo("1") == 0){
-        System.out.println("Pause beginnt jetzt mit Länge " + pausenZeit);
+        System.out.println("Pause beginnt jetzt mit Laenge " + pausenZeit);
         try {
           TimeUnit.MINUTES.sleep(pausenZeit);
         } catch (Exception e) {
 
         }
       }else if(eingabe.compareTo("0") == 0) {
-        System.out.println("Du hast die Pause geskippt. Nächste beginnt in "+ arbeitsZeit + "min");
+        System.out.println("Du hast die Pause geskippt. Naechste beginnt in "+ arbeitsZeit + "min");
       }else if(eingabe.compareTo("2") == 0) {
-        System.out.println("Kehre zum Startmenu zurück...");
+        System.out.println("Kehre zum Startmenu zurueck...");
         try {
           TimeUnit.SECONDS.sleep(2);
         }catch(Exception e){
