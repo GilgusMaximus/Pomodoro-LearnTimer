@@ -13,6 +13,9 @@ public class Timer {
   private static long kurzePause = 5;
   private static long langePause = 10;
   private static long arbeitsIntervallCounter = 0;
+  private static final long arbeitsZeitStandard = 45;
+  private static final long kurzePauseStandard = 5;
+  private static final long langePauseStandard = 10;
 
   private static void createNotification(String notificationText) throws AWTException, MalformedURLException{
     if (SystemTray.isSupported()) {
@@ -54,7 +57,8 @@ public class Timer {
     System.out.println("0) Dauer der Lernsessions bearbeiten");
     System.out.println("1) Dauer der kurzen Pausen bearbeiten");
     System.out.println("2) Dauer der langen Pausen bearbeiten");
-    System.out.println("3) Zurück zum Startmenu");
+    System.out.println("3) Auf Standard zuruecksetzen");
+    System.out.println("4) Zurück zum Startmenu");
 
     eingabe = scanner.nextLine();
     while(eingabe.compareTo("0") != 0 && eingabe.compareTo("1") != 0 && eingabe.compareTo("2") != 0 && eingabe.compareTo("3") != 0){
@@ -63,11 +67,21 @@ public class Timer {
     }
 
     if(eingabe.compareTo("0") == 0){
-      //TODO
+      System.out.println("Bitte neue Zeit in ganzen Minuten eingeben: ");
+        while(!scanner.hasNextInt()){
+          scanner.next();
+          System.out.println("Bitte einen ganzen Wert eingeben");
+        }
+        arbeitsZeit = scanner.nextInt();
+        System.out.println("Ihre neue Arbeitszeit beträgt " + arbeitsZeit);
     }else if(eingabe.compareTo("1") == 0){
       //TODO
     }else if(eingabe.compareTo("2") == 0){
       //TODO
+    }else if(eingabe.compareTo("3") == 0){
+      arbeitsZeit = arbeitsZeitStandard;
+      kurzePause = kurzePauseStandard;
+      langePause = langePauseStandard;
     }
     return 0;
   }
