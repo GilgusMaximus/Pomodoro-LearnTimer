@@ -1,4 +1,6 @@
 
+import org.omg.CORBA.TIMEOUT;
+
 import java.awt.Toolkit;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -115,6 +117,69 @@ public class Timer {
     return 2;
   }
   private static int learnSession(){
+    Scanner scanner = new Scanner(System.in);
+    String eingabe = "";
+    //CMD Output
+    System.out.println("Arbeitszeit von "+ arbeitsZeit +"min beginnt nun");
+    //Win10 Notification
+    try {
+      createNotification("Die Arbeitszeit von "+ arbeitsZeit + "min beginnt nun");
+    }catch(Exception e){
+    }
+    createWindowsPing();
+    while (eingabe.compareTo("-1") != 0) {
+      try {
+        TimeUnit.MINUTES.sleep(arbeitsZeit);
+      } catch (Exception e) {
+      }
+      try {
+        createNotification("Die Arbeitszeit ist vorbei - Pausenwahl möglich");
+      }catch(Exception e){
+      }
+
+      createWindowsPing();
+      arbeitsIntervallCounter = arbeitsIntervallCounter +1;
+      long pausenZeit = 0;
+      if(arbeitsIntervallCounter == 3) {
+        System.out.println("Möchtest du eine Pause von " + langePause
+                + " einlegen? y = 1/n = 0. Oder möchten Sie zum Startmenu? y = 2. Oder möchten Sie beenden? y = -1");
+        pausenZeit = kurzePause;
+      } else {
+        System.out.println("Möchtest du eine Pause von " + kurzePause
+                + " einlegen? y = 1/n = 0. Oder möchten Sie zum Startmenu? y = 2. Oder möchten Sie beenden? y = -1");
+        pausenZeit = langePause;
+      }
+
+      while(true){
+        if(scanner.hasNextInt()){
+          eingabe = ""+scanner.nextInt();
+          if(eingabe.compareTo("-1") == 0 || eingabe.compareTo("0") == 0 || eingabe.compareTo("1") == 0 || eingabe.compareTo("2") == 0){
+            break;
+          }
+        }
+      }
+
+      if(eingabe.compareTo("1") == 0){
+        System.out.println("Pause beginnt jetzt mit Länge " + pausenZeit);
+        try {
+          TimeUnit.MINUTES.sleep(pausenZeit);
+        } catch (Exception e) {
+
+        }
+      }else if(eingabe.compareTo("0") == 0) {
+        System.out.println("Du hast die Pause geskippt. Nächste beginnt in "+ arbeitsZeit + "min");
+      }else if(eingabe.compareTo("2") == 0) {
+        System.out.println("Kehre zum Startmenu zurück...");
+        try {
+          TimeUnit.SECONDS.sleep(2);
+        }catch(Exception e){
+        }
+        return 0;
+      }else
+      {
+        return -1;
+      }
+    }
     return 0;
   }
 
@@ -165,59 +230,7 @@ public class Timer {
     clearSpace();
     System.out.println("Vielen Dank, dass Sie Pomodoro LearnTimer verwenden.\nBis zum naechsten mal");
     System.exit(0);
-    //CMD Output
-    System.out.println("Arbeitszeit mit 45min beginnt nun");
-    //Win10 Notification
-    try {
-      createNotification("Die Arbeitszeit von 45min beginnt nun");
-    }catch(Exception e){
-    }
-    createWindowsPing();
-    while (eingabe.compareTo("-1") != 0) {
-      try {
-        TimeUnit.SECONDS.sleep(10);
-      } catch (Exception e) {
-      }
-      for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 10; j++)
-          System.out.println("!!");
-      }
-      try {
-        createNotification("Die Arbeitszeit ist vorbei - Pausenwahl möglich");
-      }catch(Exception e){
-      }
 
-      createWindowsPing();
-      arbeitsIntervallCounter = arbeitsIntervallCounter +1;
-      long pausenZeit = 0;
-
-      if(arbeitsIntervallCounter == 3) {
-        System.out.println("Möchtest du eine Pause von " + langePause
-            + " einlegen? y = 1/n = 0. Oder möchten Sie beenden? y = -1");
-        pausenZeit = kurzePause;
-      } else {
-        System.out.println("Möchtest du eine Pause von " + kurzePause
-            + " einlegen? y = 1/n = 0. Oder möchten Sie beenden? y = -1");
-        pausenZeit = langePause;
-      }
-      eingabe = scanner.nextLine();
-      while(eingabe.compareTo("-1") != 0 && eingabe.compareTo("0") != 0 && eingabe.compareTo("1") != 0){
-        eingabe = scanner.nextLine();
-      }
-      if(eingabe.compareTo("1") == 0){
-        System.out.println("Pause beginnt jetzt mit Länge " + pausenZeit);
-        try {
-          TimeUnit.MINUTES.sleep(pausenZeit);
-        } catch (Exception e) {
-
-        }
-      }else if(eingabe.compareTo("0") == 0) {
-        System.out.println("Du hast die Pause geskippt. Nächste beginnt in 45min");
-      }else{
-        System.out.println("Das System wird beendet");
-        System.exit(1);
-      }
-    }
 
   }
   private static void printSperationLine(){
