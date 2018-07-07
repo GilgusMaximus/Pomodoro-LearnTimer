@@ -33,21 +33,31 @@ public class Timer {
     System.out.println("Bitte waehlen Sie eine Option mit Eingabe der entsprechende Zahl aus");
     System.out.println("0) Lernsession beginnen\n1) Optionen\n2) Beenden");
 
-    while(eingabe.compareTo("0") != 0 && eingabe.compareTo("1") != 0 && eingabe.compareTo("2") != 0){
-      System.out.println("Bitte einen validen Wert eingeben");
-      eingabe = scanner.nextLine();
+    while(true){
+      if(scanner.hasNextInt()) {
+        if (eingabe.compareTo("0") != 0 || eingabe.compareTo("1") != 0 || eingabe.compareTo("2") != 0) {
+          eingabe = scanner.nextLine();
+          break;
+        }
+      }
+      System.out.println("Bitte einen ganzzahlien Wert eingeben");
+      scanner.next();
     }
+
     //Because the actual state values are arranged in another way
     if(eingabe.compareTo("0") == 0)
       return 1;
     else if(eingabe.compareTo("1") == 0)
       return 2;
-    else
+    else if(eingabe.compareTo("2") == 0)
       return -1;
+    else
+      return 0;
   }
 
   private static int optionsMenu(Scanner scanner){
-    String eingabe;
+    scanner = new Scanner(System.in);
+    String eingabe = "";
 
     clearSpace();
     //printSperationLine();
@@ -60,10 +70,15 @@ public class Timer {
     System.out.println("3) Auf Standard zuruecksetzen");
     System.out.println("4) Zurück zum Startmenu");
 
-    eingabe = scanner.nextLine();
-    while(eingabe.compareTo("0") != 0 && eingabe.compareTo("1") != 0 && eingabe.compareTo("2") != 0 && eingabe.compareTo("3") != 0){
-      System.out.println("Bitte geben sie einen validen Wert ein");
-      eingabe = scanner.nextLine();
+    while(true){
+      if(scanner.hasNextInt()) {
+        if (eingabe.compareTo("0") != 0 || eingabe.compareTo("1") != 0 || eingabe.compareTo("2") != 0 || eingabe.compareTo("3") == 0 || eingabe.compareTo("4") == 0) {
+          eingabe = scanner.nextLine();
+          break;
+        }
+      }
+      System.out.println("Bitte einen ganzzahlien Wert eingeben");
+      scanner.nextLine();
     }
 
     if(eingabe.compareTo("0") == 0){
@@ -73,17 +88,31 @@ public class Timer {
           System.out.println("Bitte einen ganzen Wert eingeben");
         }
         arbeitsZeit = scanner.nextInt();
-        System.out.println("Ihre neue Arbeitszeit beträgt " + arbeitsZeit);
+        System.out.println("Ihre neue Arbeitszeit beträgt " + arbeitsZeit +"min");
     }else if(eingabe.compareTo("1") == 0){
-      //TODO
+      System.out.println("Bitte neue Zeit in ganzen Minuten eingeben: ");
+      while(!scanner.hasNextInt()){
+        scanner.next();
+        System.out.println("Bitte einen ganzen Wert eingeben");
+      }
+      kurzePause = scanner.nextInt();
+      System.out.println("Ihre neue kurze Pause beträgt " + kurzePause + "min");
     }else if(eingabe.compareTo("2") == 0){
-      //TODO
+      System.out.println("Bitte neue Zeit in ganzen Minuten eingeben: ");
+      while(!scanner.hasNextInt()){
+        scanner.next();
+        System.out.println("Bitte einen ganzen Wert eingeben");
+      }
+      langePause = scanner.nextInt();
+      System.out.println("Ihre neue lange Pause beträgt " + langePause + "min");
     }else if(eingabe.compareTo("3") == 0){
       arbeitsZeit = arbeitsZeitStandard;
       kurzePause = kurzePauseStandard;
       langePause = langePauseStandard;
+    }else{
+      return 0;
     }
-    return 0;
+    return 2;
   }
   private static int learnSession(){
     return 0;
@@ -132,7 +161,7 @@ public class Timer {
       else
         break;
     }
-
+    System.out.println(state);
     clearSpace();
     System.out.println("Vielen Dank, dass Sie Pomodoro LearnTimer verwenden.\nBis zum naechsten mal");
     System.exit(0);
